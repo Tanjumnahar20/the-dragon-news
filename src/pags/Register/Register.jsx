@@ -1,12 +1,26 @@
+/* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
 import Navbar from "../shared/Navbar/Navbar";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/Context";
 
 const Register = () => {
+
+    // sharing context from context compo
+    const {createUser} =useContext(AuthContext)
     
         const handleRegister = (e) => {
             e.preventDefault();
             const form = new FormData(e.currentTarget);
-            console.log(form.get('password'))
+            const name = form.get('name');
+            const photo  = form.get('photo url');
+            const email = form.get('email');
+            const password = form.get('password');
+            console.log(name,photo,email,password)
+            // create user
+            createUser(email,password)
+            .then(result=>{console.log(result)})
+            .catch(error=>(console.log(error)))
         }
     return (
         <div>
